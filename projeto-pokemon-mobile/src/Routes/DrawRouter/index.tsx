@@ -9,10 +9,12 @@ const Drawer = createDrawerNavigator();
 export function DrawerNavigation() {
 
   return (
-    <GestureHandlerRootView style={{flex: 1}}>
-    <Drawer.Navigator>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <Drawer.Navigator>
         <Drawer.Screen name='Main' component={Main} />
-    </Drawer.Navigator>
+
+        <Drawer.Screen name='Games' component={Games} options={{ title: 'Jogos Clássicos' }} />
+      </Drawer.Navigator>
     </GestureHandlerRootView>
   )
 }
