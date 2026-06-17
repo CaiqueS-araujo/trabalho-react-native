@@ -235,3 +235,5 @@ Projeto desenvolvido em equipe para a disciplina **Desenvolvimento de Aplicaçã
 <p align="center">
   Feito com 💛 usando React Native e a PokeAPI
 </p>
+#   t r a b a l h o - r e a c t - n a t i v e  
+ 
