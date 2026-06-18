@@ -1,57 +1,90 @@
-import { View, Text, StyleSheet, ScrollView } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import React, { useEffect, useState } from 'react'
+import Card from '../Card';
 
 export default function PokemonsListCard() {
 
-    const [StaticPokemons, setStaticPokemons] = useState([
-        {
-            imagem: '',
-            titulo: 'exmplo1',
-            subtitulo: 'exemplo1',
-        },{
-            imagem: '',
-            titulo: 'exemplo2',
-            subtitulo: 'exemplo2',
-        },{
-            imagem: '',
-            titulo: 'exemplo3',
-            subtitulo: 'exemplo3',
-        },{
-            imagem: '',
-            titulo: 'exemplo4',
-            subtitulo: 'exemplo4',
-        },{
-            imagem: '',
-            titulo: 'exemplo5',
-            subtitulo: 'exemplo5',
-        },{
-            imagem: '',
-            titulo: 'exemplo6',
-            subtitulo: 'exemplo6',
-        },
-    ]);
+    type PokemonCard = {
+        image: string,
+        title: string,
+        subtitle: string,
+    }
 
-    const [PokemonsDynamicList, setPokemonsDynamicList] = useState([]);
+    const [StaticPokemons, setStaticPokemons] = useState<PokemonCard[]>(
+[
+    {   
+        image: '', 
+        title: 'titulo1', 
+        subtitle: 'subtitulo1'
+    },
+
+    {   
+        image: '', 
+        title: 'titulo2', 
+        subtitle: 'subtitulo2'
+    },
+
+    {   
+        image: '', 
+        title: 'titulo3', 
+        subtitle: 'subtitulo3'
+    },
+
+    {   
+        image: '', 
+        title: 'titulo4', 
+        subtitle: 'subtitulo4'
+    },
+
+    {   
+        image: '', 
+        title: 'titulo5', 
+        subtitle: 'subtitulo5'
+    },
+
+    {   
+        image: '', 
+        title: 'titulo6', 
+        subtitle: 'subtitulo6'
+    },
+
+]);
+
+    const [PokemonsDynamicList, setPokemonsDynamicList] = useState<PokemonCard[]>([]);
 
    useEffect(() => {
     setPokemonsDynamicList(
-        StaticPokemons.map((element) => {
+        StaticPokemons.map((element, key) => {
             return {
-                titulo: element.titulo,
-                subtitulo: element.subtitulo,
-                imagem: element.imagem,
+                title: element.title,
+                subtitle: element.subtitle,
+                image: element.image,
             };
         })
     );
 }, []);
 
   return (
-    <ScrollView>
-        
-    </ScrollView>
+    <View style={styles.ListCard}>
+    {PokemonsDynamicList.map
+    (
+        (obj,key) => (
+            <Card key={key}pokemon={obj} />
+        )
+    )
+    }
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
-
+ListCard: {
+    
+    flex: 1,
+    alignSelf: 'center',
+    flexDirection: 'row',
+    gap: 250,
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+},
 })
