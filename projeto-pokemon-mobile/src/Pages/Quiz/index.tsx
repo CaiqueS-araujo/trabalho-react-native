@@ -7,6 +7,7 @@ import {
   Image,
   StyleSheet,
   SafeAreaView,
+  ActivityIndicator,
 } from 'react-native';
 import React, { useState, useEffect } from 'react';
 
@@ -27,6 +28,7 @@ export function Quiz() {
   const [tempoRestante, setTempoRestante] = useState(TEMPO_POR_PERGUNTA);
   const [finalizado, setFinalizado] = useState(false);
   const [respostas, setRespostas] = useState<Resposta[]>([]);
+  const [imagemCarregando, setImagemCarregando] = useState(true);
 
   const perguntaAtual = perguntasQuiz[indiceAtual];
 
@@ -44,7 +46,7 @@ export function Quiz() {
 
   function proximaPergunta() {
     if (indiceAtual + 1 < perguntasQuiz.length) {
-      setIndiceAtual((indice) => indice + 1);
+      setIndiceAtual((i) => i + 1);
     } else {
       setFinalizado(true);
     }
@@ -57,12 +59,15 @@ export function Quiz() {
     setFinalizado(false);
     setRespondido(false);
     setOpcaoSelecionada(null);
+    setIniciou(false);
+    setNome('');
   }
 
   useEffect(() => {
     setTempoRestante(TEMPO_POR_PERGUNTA);
     setRespondido(false);
     setOpcaoSelecionada(null);
+    setImagemCarregando(true);
   }, [indiceAtual]);
 
   useEffect(() => {
@@ -72,7 +77,7 @@ export function Quiz() {
       return;
     }
     const id = setInterval(() => {
-      setTempoRestante((tempo) => tempo - 1);
+      setTempoRestante((t) => t - 1);
     }, 1000);
     return () => clearInterval(id);
   }, [tempoRestante, respondido, iniciou, finalizado]);
@@ -98,8 +103,8 @@ export function Quiz() {
             onChangeText={setNome}
           />
           <TouchableOpacity
-            style={styles.botaoPrimario}
-            onPress={() => setIniciou(true)}
+            style={[styles.botaoPrimario, !nome.trim() && styles.botaoDesabilitado]}
+            onPress={() => nome.trim() && setIniciou(true)}
             activeOpacity={0.8}
           >
             <Text style={styles.textoBotaoPrimario}>Começar</Text>
@@ -118,9 +123,9 @@ export function Quiz() {
           <Text style={styles.headerTitulo}>QUIZ POKÉMON</Text>
         </View>
         <View style={styles.containerResultado}>
-          <Text style={styles.titulo}>Parabéns, {nome || 'treinador(a)'}!</Text>
+          <Text style={styles.titulo}>Parabéns, {nome}!</Text>
           <Text style={styles.pontuacaoFinal}>
-            Você fez {pontuacao} pontos ({acertos} de {perguntasQuiz.length} certas)
+            {pontuacao} pontos — {acertos} de {perguntasQuiz.length} certas
           </Text>
           <FlatList
             style={styles.lista}
@@ -128,11 +133,7 @@ export function Quiz() {
             keyExtractor={(_, index) => String(index)}
             renderItem={({ item }) => <ItemResultado item={item} />}
           />
-          <TouchableOpacity
-            style={styles.botaoPrimario}
-            onPress={jogarDeNovo}
-            activeOpacity={0.8}
-          >
+          <TouchableOpacity style={styles.botaoPrimario} onPress={jogarDeNovo} activeOpacity={0.8}>
             <Text style={styles.textoBotaoPrimario}>Jogar de novo</Text>
           </TouchableOpacity>
         </View>
@@ -152,19 +153,24 @@ export function Quiz() {
           total={perguntasQuiz.length}
           pontos={pontuacao}
         />
+
         <Text style={styles.tempo}>⏱ {tempoRestante}s</Text>
-        <View style={styles.imagemPlaceholder}>
-          {perguntaAtual.imagem ? (
-            <Image
-              source={perguntaAtual.imagem}
-              style={styles.imagem}
-              resizeMode="contain"
-            />
-          ) : (
-            <Text style={styles.imagemTexto}>?</Text>
+
+        <View style={styles.imagemContainer}>
+          {imagemCarregando && (
+            <ActivityIndicator size="large" color="#2A75BB" style={StyleSheet.absoluteFill} />
           )}
+          <Image
+            source={{ uri: perguntaAtual.imagemUrl }}
+            style={styles.imagem}
+            resizeMode="contain"
+            onLoad={() => setImagemCarregando(false)}
+            onError={() => setImagemCarregando(false)}
+          />
         </View>
+
         <Text style={styles.pergunta}>Quem é esse Pokémon?</Text>
+
         <View style={styles.opcoes}>
           {perguntaAtual.opcoes.map((opcao) => (
             <BotaoResposta
@@ -177,12 +183,9 @@ export function Quiz() {
             />
           ))}
         </View>
+
         {respondido && (
-          <TouchableOpacity
-            style={styles.botaoPrimario}
-            onPress={proximaPergunta}
-            activeOpacity={0.8}
-          >
+          <TouchableOpacity style={styles.botaoPrimario} onPress={proximaPergunta} activeOpacity={0.8}>
             <Text style={styles.textoBotaoPrimario}>
               {indiceAtual + 1 < perguntasQuiz.length ? 'Próxima pergunta' : 'Ver resultado'}
             </Text>
@@ -261,6 +264,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 12,
   },
+  botaoDesabilitado: {
+    backgroundColor: '#C9BBA0',
+  },
   textoBotaoPrimario: {
     color: '#FFFFFF',
     fontSize: 16,
@@ -270,30 +276,26 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 14,
     color: '#A83232',
-    marginBottom: 12,
+    marginBottom: 8,
   },
-  imagemPlaceholder: {
-    height: 160,
+  imagemContainer: {
+    height: 180,
     backgroundColor: '#F6F1E8',
     borderRadius: 16,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 16,
+    marginBottom: 12,
+    overflow: 'hidden',
   },
   imagem: {
-    width: '80%',
-    height: '80%',
-  },
-  imagemTexto: {
-    fontSize: 48,
-    color: '#C9BBA0',
-    fontWeight: '700',
+    width: '85%',
+    height: '85%',
   },
   pergunta: {
     fontSize: 17,
     fontWeight: '600',
     textAlign: 'center',
-    marginBottom: 16,
+    marginBottom: 14,
     color: '#262626',
   },
   opcoes: {
