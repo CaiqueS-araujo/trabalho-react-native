@@ -1,11 +1,12 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, ImageSourcePropType } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import Card from '../Card';
+import * as images from '../../../assets/index';
 
 export default function PokemonsListCard() {
 
     type PokemonCard = {
-        image: string,
+        image: ImageSourcePropType,
         title: string,
         subtitle: string,
     }
@@ -13,39 +14,39 @@ export default function PokemonsListCard() {
     const [StaticPokemons, setStaticPokemons] = useState<PokemonCard[]>(
 [
     {   
-        image: '', 
-        title: 'titulo1', 
-        subtitle: 'subtitulo1'
+        image: images.Bulbasaur, 
+        title: 'Bulbasaur', 
+        subtitle: 'Element: Grass'
     },
 
     {   
-        image: '', 
-        title: 'titulo2', 
-        subtitle: 'subtitulo2'
+        image: images.Butterfree, 
+        title: 'Butterfree', 
+        subtitle: 'Element: Bug, Flying'
     },
 
     {   
-        image: '', 
-        title: 'titulo3', 
-        subtitle: 'subtitulo3'
+        image: images.Caterpie, 
+        title: 'Caterpie', 
+        subtitle: 'Element: Bug'
     },
 
     {   
-        image: '', 
-        title: 'titulo4', 
-        subtitle: 'subtitulo4'
+        image: images.Charizard, 
+        title: 'Charizard', 
+        subtitle: 'Element: Fire, Flying'
     },
 
     {   
-        image: '', 
-        title: 'titulo5', 
-        subtitle: 'subtitulo5'
+        image: images.Metapod, 
+        title: 'Metapod', 
+        subtitle: 'Element: Bug'
     },
 
     {   
-        image: '', 
-        title: 'titulo6', 
-        subtitle: 'subtitulo6'
+        image: images.Squirtle, 
+        title: 'Squirtle', 
+        subtitle: 'Element: Water'
     },
 
 ]);
@@ -83,7 +84,7 @@ ListCard: {
     flex: 1,
     alignSelf: 'center',
     flexDirection: 'row',
-    gap: 250,
+    gap: 40,
     flexWrap: 'wrap',
     justifyContent: 'center',
 },

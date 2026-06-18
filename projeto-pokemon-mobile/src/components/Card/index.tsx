@@ -1,11 +1,11 @@
-import { View, StyleSheet, Image, Text, Platform } from 'react-native';
+import { View, StyleSheet, Image, Text, Platform,ImageSourcePropType } from 'react-native';
 import { Orbitron_400Regular, useFonts } from '@expo-google-fonts/orbitron';
 import { Fredoka_400Regular } from '@expo-google-fonts/fredoka';
 import React from 'react';
 
 type CardElements = {
   pokemon: {
-    image : string;
+    image : ImageSourcePropType;
     title : string;
     subtitle : string;
   };
@@ -25,9 +25,7 @@ export default function Card({ pokemon }: CardElements) {
   return (
     <View style={styles.containerCard}>
       <Image
-        source={{
-          uri: pokemon.image,
-        }}
+        source={pokemon.image}
         style={styles.image}
         alt='Imagens Pokémons'
       />
@@ -72,6 +70,7 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
     borderRadius: 20,
+    backgroundColor: '#fff',
   },
 
   title: {
