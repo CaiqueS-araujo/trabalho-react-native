@@ -5,6 +5,7 @@ import { Main } from '../../Pages/Main';
 import { Quiz } from '../../Pages/Quiz';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Games } from '../../Pages/Games';
+import { Curiosidades } from '../../Pages/Curiosidades'
 
 const Drawer = createDrawerNavigator();
 
@@ -17,6 +18,7 @@ export function DrawerNavigation() {
         <Drawer.Screen name='Main' component={Main} />
         <Drawer.Screen name='Quiz' component={Quiz} options={{ title: 'Quiz Pokémon' }} />
         <Drawer.Screen name='Games' component={Games} options={{ title: 'Jogos Clássicos' }} />
+        <Drawer.Screen name ='Curiosidades' component={Curiosidades} options={{title: 'Curiosidades Pokémon'}} />
       </Drawer.Navigator>
     </GestureHandlerRootView>
   )
