@@ -1,6 +1,20 @@
 import { Image } from 'react-native';
 import { StyleSheet, View, Text, ScrollView } from 'react-native';
 
+/*
+<Image source={require('../../assets/Squirtle-Evolucao.jpg')}
+style={{width: 200, height: 100}}
+/>
+
+<Image source={require('../../assets/Charizard X-Y.jpg')}
+style={{width: 200, height: 100}}
+/>
+
+<Image source={require('../../assets/Pikachu-Gigantamax.jpg')}
+style={{width: 190, height: 180}}
+/>
+*/
+
 export function Curiosidades() {
   return (
     <ScrollView>
@@ -15,9 +29,6 @@ export function Curiosidades() {
           <Text style={styles.textoCuriosidades}>Fontes de energia externas: Essas fontes são as Pedras Evolutivas, são pequenas fontes de energia que casuam uma mudança instantânea no corpo do Pokémon.</Text>
           <Text style={styles.textoCuriosidades}>Relacionamento com o treinador: Essa mudança ocorre quando o Pokémon possui um bom relacionamento com o seu treinador, essas emoções causam mudanças na biología do Pokémon. Somente algumas espécies são capazes disso, como: Pichu --- Pikachu, Eevee --- Espeon/Umbreon, Cleffa --- Clefairy.</Text>
           <Text style={styles.textoCuriosidades}>Troca de Pokémons: Mudanças que ocorrem quando dois treinadores fazem uma troca de Pokémons. Teorias dizem que essa troca gera um estimulo desconhecido no Pokémon e acaba causando essa mudança. Somente algumas espécies são capazes disso, como: Graveler --- Golem, Haunter --- Gengar, Kadabra --- Alakazam.</Text>
-          <Image source={require('../../assets/Squirtle-Evolucao.jpg')}
-          style={{width: 200, height: 100}}
-          />
         </View>
 
         <View style={styles.telaCuriosidades}>
@@ -34,9 +45,6 @@ export function Curiosidades() {
             <Text style={styles.textoCuriosidades}>A segunda fala sobre um meteorito que caiu na terra a milhares de anos na região de Hoenn.
             A energia emanada desse meteorito teria criado as Mega Stones e as Key Stones.
             </Text>
-          <Image source={require('../../assets/Charizard X-Y.jpg')}
-          style={{width: 200, height: 100}}
-          />
         </View>
 
         <View style={styles.telaCuriosidades}>
@@ -55,9 +63,6 @@ export function Curiosidades() {
           uma ferramenta científica criada para controlar essa energia, ela faz o Pokémon absorver essa energia e então atingir a sua forma Dinamax ou sua forma Gigantamax.
           Lembrando que essa forma somente é possivel na região de Galar.
           </Text>
-          <Image source={require('../../assets/Pikachu-Gigantamax.jpg')}
-          style={{width: 190, height: 180}}
-          />
       </View>
       </View>
     </ScrollView>
